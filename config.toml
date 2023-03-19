@@ -5,10 +5,7 @@ text_history_ttl = 300 # optional, for how long to store user messages, default 
 text_history_size = 10 # optional, how many messages from each user to keep
 
 [telegram]
-bot_token = "6069547031:AAH1dVzC-jlZtuAm4itWnZVilLwkA61iU50"
-admin_id = 111 # optional, id of admin user who can whitelist and blacklist chats and users
-allowed_users = [123, 234] # optional, a list of users from which messages are allowed
-allowed_chats = [345, 456] # optional, a list of changes from which all messages are allowed
+bot_token = "6168648812:AAGQYA2Ofsuk9oh5aDbC3NKksjZ4_wey1Iw"
 
 [integrations]
 
