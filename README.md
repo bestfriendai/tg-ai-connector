@@ -4,6 +4,45 @@
 
 # Installation
 
+## Docker
+
+https://hub.docker.com/repository/docker/desprit/tg-ai-connector/general
+
+```sh
+# Create file to store whitelisted chats and users
+touch /path/to/whitelist.txt
+
+# If you're on Linux
+docker run -d --rm \
+   -v /path/to/config.toml:/app/bot/config.toml \
+   -v /path/to/whitelist.txt:/app/bot/whitelist.txt \
+   desprit/tg-ai-connector:1.0.0
+
+# If you're on MacOS M1
+docker run -d --rm \
+   --platform linux/amd64 \
+   -v /path/to/config.toml:/app/bot/config.toml \
+   -v /path/to/whitelist.txt:/app/bot/whitelist.txt \
+   desprit/tg-ai-connector:1.0.0
+```
+
+Map log file from the host to the container if needed:
+
+```sh
+# Create log file
+touch /path/to/log.txt
+
+docker run \
+   -v /path/to/config.toml:/app/bot/config.toml \
+   -v /path/to/whitelist.txt:/app/bot/whitelist.txt \
+   -v /path/to/log.txt:/app/bot/log.txt \
+   desprit/tg-ai-connector:1.0.0
+
+tail -f /path/to/log.txt
+```
+
+## Manual
+
 Python 3.10+ is required.
 
 ```sh
@@ -72,18 +111,22 @@ allowed_chats = [345, 456] # optional, a list of changes from which all messages
 
 [integrations.openai]
 api_key = "OPEN_AI_TOKEN" # set it to enable OpenAI integration
+max_tokens = 1000 # max tokens to return by OpenAI text models, default 500
 [[integrations.openai.networks]]
 name = "completion"
 version = "text-davinci-003"
 command = "t" # Telegram command to trigger Text Completion requests
+type = "text"
 [[integrations.openai.networks]]
 name = "chat"
 version = "gpt-4"
 command = "c" # Telegram command to trigger ChatGPT requests
+type = "text"
 [[integrations.openai.networks]]
 name = "image"
 version = "dalle"
 command = "d" # Telegram command to trigger Dall-E requests
+type = "text"
 
 [integrations.replicate]
 api_key = "REPLICATE_TOKEN" # set it to enable Replicate integration

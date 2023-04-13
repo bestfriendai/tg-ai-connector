@@ -4,6 +4,45 @@
 
 # Установка
 
+## Докер
+
+https://hub.docker.com/repository/docker/desprit/tg-ai-connector/general
+
+```sh
+# Создайте файл, в котором будут чаты и пользователи, которым разрешено общаться с ботом
+touch /path/to/whitelist.txt
+
+# Если у вас Linux
+docker run -d --rm \
+   -v /path/to/config.toml:/app/bot/config.toml \
+   -v /path/to/whitelist.txt:/app/bot/whitelist.txt \
+   desprit/tg-ai-connector:1.0.0
+
+# Если у вас MacOS M1
+docker run -d --rm \
+   --platform linux/amd64 \
+   -v /path/to/config.toml:/app/bot/config.toml \
+   -v /path/to/whitelist.txt:/app/bot/whitelist.txt \
+   desprit/tg-ai-connector:1.0.0
+```
+
+Если нужно, используйте лог файл с хоста и пробросьте его в контейнер:
+
+```sh
+# Создайте лог-файл
+touch /path/to/log.txt
+
+docker run \
+   -v /path/to/config.toml:/app/bot/config.toml \
+   -v /path/to/whitelist.txt:/app/bot/whitelist.txt \
+   -v /path/to/log.txt:/app/bot/log.txt \
+   desprit/tg-ai-connector:1.0.0
+
+tail -f /path/to/log.txt
+```
+
+## Ручками
+
 Для работы нужен Python 3.10+.
 
 ```sh
@@ -72,6 +111,7 @@ allowed_chats = [345, 456] # опционально, список чатов, о
 
 [integrations.openai]
 api_key = "OPEN_AI_TOKEN" # этот токен включает интеграцию с OpenAI
+max_tokens = 1000 # максимальное количество токенов, возвращаемое текстовыми моделями OpenAI, 500 по умолчанию
 [[integrations.openai.networks]]
 name = "completion"
 version = "text-davinci-003"
