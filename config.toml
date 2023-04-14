@@ -10,7 +10,7 @@ bot_token = "6168648812:AAGQYA2Ofsuk9oh5aDbC3NKksjZ4_wey1Iw"
 [integrations]
 
 [integrations.openai]
-api_key = "OPEN_AI_TOKEN" # set it to enable OpenAI integration
+api_key = "sk-PD49bbIaLh4OTASL3UyLT3BlbkFJX8omaMBYwcCya5jYnFBfN" # set it to enable OpenAI integration
 [[integrations.openai.networks]]
 name = "completion"
 version = "text-davinci-003"
